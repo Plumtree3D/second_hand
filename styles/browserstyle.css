@@ -123,7 +123,6 @@ form {
 }
 
 .generalForm {
-    width: 800px;
     padding-left: 15px;
     padding-right: 15px;
 }
@@ -132,6 +131,16 @@ form {
     display: flex;
     justify-content: space-between;
     margin: 15px 0 15px 0;
+}
+
+.form {
+    width: 1200px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.sidebar {
+    padding: 0 15px 0 15px;
 }
 
 textarea {
@@ -155,7 +164,6 @@ input, .currencyinput {
 }
 
 input[type=file] {
-    display: none;
 }
 
 select {
@@ -188,3 +196,5 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+
+
