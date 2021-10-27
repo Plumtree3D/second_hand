@@ -188,3 +188,8 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+
+.recherche{
+    margin: 0 auto;
+    width: 50%;
+}

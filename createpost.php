@@ -16,7 +16,6 @@ require_once 'class/class.pictures.php';
 
 <!-- GENERAL FOR ALL CATEGORIES---------------  -->
 <form method="POST" enctype="multipart/form-data"> <!-- Formulaire -->
-
 <div class="generalForm">
     <div class="createPostRow">
         <div>
