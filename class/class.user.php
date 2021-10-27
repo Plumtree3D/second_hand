@@ -45,15 +45,23 @@ class Register extends Database{
 
         $name = $_POST["name"];
         $password = $_POST["password"];
+        
        
-        $verify = $this->connect()->prepare("SELECT * FROM user WHERE user_name=? AND user_pwd=? LIMIT 1");
-        $verify->execute(array($name, $password));
+        $verify = $this->connect()->prepare('SELECT * FROM user WHERE user_name=?');
+        $verify->execute(array($name));
         $user = $verify->fetch(PDO::FETCH_ASSOC);
-        if (count($user) > 0){
-            $_SESSION["firstname_lastname"] = ucfirst(strtolower($user[0]["firstname"])) . 
-            " " . strtoupper($user[0]["lastname"]);
-            $_SESSION["connecter"] = "yes";
-            header("location: session.php");
+        if (!empty($user)){
+            if(password_verify($password, $user["user_pwd"])) {
+                $_SESSION["firstname_lastname"] = $user["user_firstname"] . $user["user_lastname"];
+                $_SESSION["connecter"] = "yes";
+                $_SESSION["user_id"] = $user["user_id"];
+
+                header("location: ../profile.php");
+        } else {
+            echo "Mot de passe incorect espèce de grosse merde c'est pour ça que tes parents t'on déshérité";
+        }
+
+
         } else
         $erreur = "Mauvais nom d'utilisateur ou mot de passe !";
     }
