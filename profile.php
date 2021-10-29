@@ -27,6 +27,6 @@ $_SESSION["firstname_lastname"];
 </head>
 <body onLOad="document.fo.login.focus()">
     <h2><?php echo $bienvenue ?></h2>
-    <a  href="logout.php">Se déconnecter</a>
+    <a  href="login/logout.php">Se déconnecter</a>
 </body>
 </html>
