@@ -1,6 +1,6 @@
 
 <?php 
-$pageTitle = "Accueil | Second Hand";
+$pageTitle = "Accueil";
 include 'head.php';
 include 'header.html';
 require_once 'class/class.postings.php';
@@ -12,6 +12,7 @@ require_once 'class/class.postings.php';
     $select = $select->select();
     foreach($select as $truc) : 
     ?>
+  
         <div class="post">
             <div class="column">
                 <div class="placeholder">
@@ -22,8 +23,9 @@ require_once 'class/class.postings.php';
                 </div>
                   
             </div>
+            
             <div class=" column centerpart">
-                <p> <strong> <?php echo $truc['posting_title']; ?> </strong>  </p>
+                <a href=<?="'posting.php?=".$truc['posting_id']."'"?> target="blank"><p> <strong> <?php echo $truc['posting_title']; ?> </strong>  </p> </a>
                 <span> <img src="images/map_marker.svg" alt=""> <?php echo $truc['posting_loc']; ?> </span>
 
                 <div class="description">
@@ -36,6 +38,7 @@ require_once 'class/class.postings.php';
                 <span><?php echo $truc['posting_price']; ?> € </span>
             </div>
 
+
             
 
                                
@@ -44,9 +47,7 @@ require_once 'class/class.postings.php';
 
 
 
-<footer>
-    <p> LE FOOTER </p>
-</footer>
+<?php include 'footer.html' ?>
 
     
 </body>

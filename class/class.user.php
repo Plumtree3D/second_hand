@@ -16,6 +16,7 @@ class Register extends Database{
     public function add($name, $firstname, $lastname, $email, $password){
 
         $name = $_POST["name"];
+        $profilepic = "";
         $firstname = $_POST["firstname"];
         $lastname = $_POST["lastname"];
         $email = $_POST["email"];
@@ -28,8 +29,9 @@ class Register extends Database{
         if (count($user_name) > 0)
         $erreur = "Pseudo déja utilisé!";
         else {
-        $insert = $this->connect()->prepare("INSERT INTO user(`user_name`, `user_firstname`, `user_lastname`, `user_email`, `user_pwd`) VALUES(:username,:firstname,:lastname,:email,:password)");
+        $insert = $this->connect()->prepare("INSERT INTO user(`user_name`, user_profilepicture, `user_firstname`, `user_lastname`, `user_email`, `user_pwd`) VALUES(:username, :profilepic, :firstname,:lastname,:email,:password)");
         $insert->bindValue(":username",$name);
+        $insert->bindValue(":profilepic",$profilepic);
         $insert->bindValue(":firstname",$firstname);
         $insert->bindValue(":lastname",$lastname);
         $insert->bindValue(":email",$email);
@@ -52,9 +54,11 @@ class Register extends Database{
         $user = $verify->fetch(PDO::FETCH_ASSOC);
         if (!empty($user)){
             if(password_verify($password, $user["user_pwd"])) {
-                $_SESSION["firstname_lastname"] = $user["user_firstname"] . $user["user_lastname"];
+                $_SESSION['username'] = $user["user_name"];
+                $_SESSION["firstname"] = $user["user_firstname"];
                 $_SESSION["connecter"] = "yes";
                 $_SESSION["user_id"] = $user["user_id"];
+                $_SESSION["profilepicture"] = $user["user_profilepicture"];
 
                 header("location: ../profile.php");
         } else {
