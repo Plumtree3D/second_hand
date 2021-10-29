@@ -163,9 +163,6 @@ input, .currencyinput {
     width: 300px;
 }
 
-input[type=file] {
-}
-
 select {
     border: solid 1px #479499;
     margin: 10px 0 10px 0;
@@ -195,6 +192,12 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
+}
+
+.search{
+    padding: 50px;
+    width: 30%;
+    margin: auto;
 }
 
 
