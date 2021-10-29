@@ -1,17 +1,55 @@
-
 <?php 
+
 $pageTitle = "Accueil";
+
 include 'head.php';
 include 'header.html';
 require_once 'class/class.postings.php';
+require_once 'class/class.database.php';
 ?>
 
+<?php
+// $connect = new Database();
+// $connect = $connect->connect();
 
-    <?php 
-    $select = new Posting();
-    $select = $select->select();
+
+?>
+
+<div class="search">
+    <form method="get" action="" name="forms" id="searchform">
+        <input type="text" name="search" placeholder="Rechercher une annonce">
+        <input type="submit" name="su" value="valider">
+    </form>
+</div>
+<div class="order">
+    <tr>
+        <form action="" method="post">
+            <th><button>Trier par date</button>
+        </form>
+        </th>
+        <form action="" method="post">
+            <th><button>Trier par prix</button>
+        </form>
+        </th>
+    </tr>
+</div>
+
+
+
+<?php 
+    if(!isset($_GET['search'])||(empty($_GET['search']))){
+        $select = new Posting();
+        $select = $select->select();
+    }else{
+        $select = new Posting();
+        $select = $select->search();
+    }
+
+
+
     foreach($select as $truc) : 
     ?>
+
   
         <div class="post">
             <div class="column">
@@ -39,16 +77,16 @@ require_once 'class/class.postings.php';
             </div>
 
 
-            
 
-                               
-        </div>
-    <?php endforeach ?>
+
+</div>
+<?php endforeach ?>
 
 
 
 <?php include 'footer.html' ?>
 
-    
+
 </body>
+
 </html>

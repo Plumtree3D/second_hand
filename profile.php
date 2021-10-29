@@ -25,6 +25,7 @@ $_SESSION["firstname"]. " !";
 
 
 
+
 <body>
 <div class="profile">
     <p><?php echo $bienvenue ?></p>
