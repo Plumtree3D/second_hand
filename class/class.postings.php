@@ -6,17 +6,12 @@ require_once 'class.database.php';
 
 class Posting extends Database {
 
-
-
-    
-
     public function select(){
         $postings = $this->connect()->prepare('SELECT * FROM `posting` INNER JOIN user ON posting.user_id = user.user_id ORDER BY posting.posting_id DESC');
         $postings-> execute();
         $post = $postings->fetchAll();
         return $post;
     }
-
 
     public function create(){
         $date = date('Y-m-d');
@@ -42,20 +37,21 @@ class Posting extends Database {
         $postings-> execute();
         $post = $postings->fetchAll();
         return $post;
-
-    //     $result = $this->connect()->prepare("SELECT * FROM posting WHERE posting_title LIKE '%$term%'");
-    //     if($num_result > 0){
-    //         while($rows =$result->fetch_assoc()){
-    //             $this->data[]=$rows;
-    //         }
-    //         return $this->data;
-    //     }else{
-    //     echo 'No records Found';
-    // }
     } 
 
+    public function orderDate(){
+        $orderd = $this->connect()->prepare("SELECT * FROM `posting` ORDER BY posting_date ASC");
+        $orderd-> execute();
+        $price_order = $orderd->fetchAll(); 
+        return $price_order;
+    }
 
-
+    public function orderPrice(){
+        $orderp = $this->connect()->prepare("SELECT * FROM `posting` ORDER BY posting_price ASC");
+        $orderp-> execute();
+        $price_order = $orderp->fetchAll(); 
+        return $price_order;
+    }
 
 }
 

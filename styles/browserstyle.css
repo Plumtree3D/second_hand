@@ -194,4 +194,10 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
+.search{
+    padding: 50px;
+    width: 30%;
+    margin: auto;
+}
+
 

@@ -16,12 +16,25 @@ require_once 'class/class.database.php';
 
 ?>
 
-<div id="search">
-    <form method="get" action="" name="forms" id="searchform" >
+<div class="search">
+    <form method="get" action="" name="forms" id="searchform">
         <input type="text" name="search" placeholder="Rechercher une annonce">
         <input type="submit" name="su" value="valider">
     </form>
-</div> 
+</div>
+<div class="order">
+    <tr>
+        <form action="" method="post">
+            <th><button>Trier par date</button>
+        </form>
+        </th>
+        <form action="" method="post">
+            <th><button>Trier par prix</button>
+        </form>
+        </th>
+    </tr>
+</div>
+
 
 
 <?php 
