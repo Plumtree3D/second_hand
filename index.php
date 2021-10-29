@@ -1,45 +1,92 @@
-<!DOCTYPE html>
-<html lang="fr">
+<?php 
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> zertyui </title>
-</head>
+ini_set('display_errors',1); error_reporting(E_ALL);
 
-<body>
+$pageTitle = "Accueil | Second Hand";
+include 'head.php';
+include 'header.html';
+require_once 'class/class.postings.php';
+require_once 'class/class.database.php';
+?>
 
-<?php require_once 'class/class.postings.php' ?>
+<?php
+// $connect = new Database();
+// $connect = $connect->connect();
 
-<h1> postings </h1>
-<table>
-    <thead>
-        <tr>
-            <th> # </th>
-            <th>title</th>
-            <th>category</th>
-            <th>description</th>
-            <th>price</th>
-            <th>location</th>
-        </tr>
-    </thead>
-    <tbody>
-    <?php 
-    $select = new Posting();
-    $select = $select->select();
+
+?>
+
+<div class="search">
+    <form method="get" action="" name="forms" id="searchform">
+        <input type="text" name="search" placeholder="Rechercher une annonce">
+        <input type="submit" name="su" value="valider">
+    </form>
+</div>
+<div class="order">
+    <tr>
+        <form action="" method="post">
+            <th><button>Trier par date</button>
+        </form>
+        </th>
+        <form action="" method="post">
+            <th><button>Trier par prix</button>
+        </form>
+        </th>
+    </tr>
+</div>
+
+
+
+<?php 
+    if(!isset($_GET['search'])||(empty($_GET['search']))){
+        $select = new Posting();
+        $select = $select->select();
+    }else{
+        $select = new Posting();
+        $select = $select->search();
+    }
+
+
+
     foreach($select as $truc) : 
     ?>
-                            <tr>
-                                <td> <?php echo $truc['posting_id']; ?> </td>
-                                <td> <?php echo $truc['posting_title']; ?> </td>
-                                <td> <?php echo $truc['posting_cat']; ?> </td>
-                                <td> <?php echo $truc['posting_desc']; ?> </td>
-                                <td> <?php echo $truc['posting_price']; ?> </td>
-                                <td> <?php echo $truc['posting_loc']; ?> </td>
-                            </tr>
-    <?php endforeach ?>
-    </tbody>
-</table>
-    
+<div class="post">
+    <div class="column">
+        <div class="placeholder">
+            <?php 
+                    if(!is_null($truc['picture_name'])) {
+                    echo '<img src="user_images/'.$truc['picture_name'].'">'; } 
+                    ?>
+        </div>
+
+    </div>
+    <div class=" column centerpart">
+        <p> <strong> <?php echo $truc['posting_title']; ?> </strong> </p>
+        <span> <img src="images/map_marker.svg" alt=""> <?php echo $truc['posting_loc']; ?> </span>
+
+        <div class="description">
+            <?php echo $truc['posting_desc']; ?>
+        </div>
+
+        <span> <img src="images/user-alt.svg" alt=""> <strong> <?php echo $truc['user_name']; ?> </strong> </span>
+    </div>
+    <div class="column price">
+        <span><?php echo $truc['posting_price']; ?> € </span>
+    </div>
+
+
+
+
+</div>
+<?php endforeach ?>
+
+
+
+<footer>
+    <p> LE FOOTER </p>
+</footer>
+
+
 </body>
+
 </html>

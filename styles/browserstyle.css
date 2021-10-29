@@ -1,0 +1,203 @@
+html {
+    background: rgb(27,89,147);
+    background: fixed linear-gradient(20deg, rgba(27,89,147,1) 25%, rgba(71,148,153,1) 75%);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    padding-top: 100px;
+    background-color: white;
+    width: 1200px;
+    margin: auto;
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    background-color: white;
+    height: 80px ;
+    width: 1200px;
+    box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.198);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 9999;
+}
+
+.logo {
+    max-height: 75px ;
+    width: auto;
+    margin-left: 15px;
+}
+
+.login {
+    margin-right: 15px;
+}
+
+.createPost {
+    text-decoration: none;
+    font-size: 26px;
+    background-color: #1B5993;
+    color: aliceblue;
+    padding: 5px 8px 5px 8px;
+    border-radius: 15px;
+    max-height: 30px;
+    box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.198);
+}
+
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: 800px;
+}
+
+.post {
+    position: relative;
+    margin: auto;
+    margin-bottom: 15px;
+    border: solid 2px #1b59934b;
+    max-width: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content:start;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    align-items: space-between;
+}
+
+.centerpart {
+    width: 50%;
+}
+.placeholder {
+    background-color:#1B5993;
+    background-image: url("../images/placeholder.svg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    margin: 15px;
+    width: 160px;
+    height: 160px;
+
+}
+
+.placeholder img {
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
+}
+
+.description {
+    height: 75px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin-bottom: 15px;
+
+}
+
+.price {
+    position: absolute;
+    padding-right: 15px;
+    padding-top: 15px;
+    right: 0;
+    font-size: 24px;
+    font-weight: 700;
+    
+}
+
+.nodisplay {
+    display: none;
+}
+
+.housing {
+    display: inline;
+}
+
+.imagesPreview {
+    border-bottom: solid 1px #479499;
+    border-top: solid 1px #479499;
+    height: 130px;
+    width: 100%;
+}
+
+.generalForm {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.createPostRow {
+    display: flex;
+    justify-content: space-between;
+    margin: 15px 0 15px 0;
+}
+
+.form {
+    width: 1200px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.sidebar {
+    padding: 0 15px 0 15px;
+}
+
+textarea {
+    border: solid 1px #479499;
+    margin: 10px 0px 10px 0px;
+    outline: none;
+    border-radius: 7px;
+    width: 100%;
+    height: 130px;
+    resize: none;
+
+}
+
+input, .currencyinput {
+    border: solid 1px #479499;
+    margin: 10px 0px 10px 0px;
+    padding: 16px;
+    outline: none;
+    border-radius: 7px;
+    width: 300px;
+}
+
+select {
+    border: solid 1px #479499;
+    margin: 10px 0 10px 0;
+    padding: 16px;
+    outline: none;
+    border-radius: 7px;
+    width: 300px;
+
+}
+
+#title {
+    width: 550px;
+}
+
+#price {
+    border: none;
+    width: 70px;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.search{
+    padding: 50px;
+    width: 30%;
+    margin: auto;
+}
+
+
