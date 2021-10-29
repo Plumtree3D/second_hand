@@ -7,7 +7,7 @@ require_once 'class.database.php';
 class Posting extends Database {
 
     public function select(){
-        $postings = $this->connect()->prepare('SELECT * FROM `posting` INNER JOIN user ON posting.user_id = user.user_id ORDER BY posting.posting_id DESC');
+        $postings = $this->connect()->prepare('SELECT posting.posting_id, posting_date, posting_title, posting_cat, posting_desc, posting_price, posting_loc, user_name, user_profilepicture, user_email, picture_id, picture_name FROM `posting` INNER JOIN user ON posting.user_id = user.user_id LEFT JOIN picture ON posting.posting_id = picture.posting_id ORDER BY posting.posting_id DESC');
         $postings-> execute();
         $post = $postings->fetchAll();
         return $post;
@@ -29,6 +29,19 @@ class Posting extends Database {
         var_dump($add->errorInfo());
         
     }
+
+
+    public function userPostings() {
+        $userid = $_SESSION['user_id'];
+        $postings = $this->connect()->prepare('SELECT * FROM `posting` INNER JOIN user ON posting.user_id = user.user_id LEFT JOIN picture ON posting.posting_id = picture.posting_id WHERE user.user_id = (:id) ORDER BY posting.posting_id DESC');
+        $postings->bindParam(':id',$_SESSION['user_id']);
+        $postings-> execute();
+        $post = $postings->fetchAll();
+        return $post;
+
+
+    }
+
 
     public function search(){
 

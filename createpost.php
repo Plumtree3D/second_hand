@@ -1,5 +1,5 @@
 <?php 
-$pageTitle = "Ajouter une annonce | Second Hand";
+$pageTitle = "Ajouter une annonce";
 include 'head.php';
 include 'header.html';
 require_once 'class/class.postings.php'; 
@@ -44,12 +44,14 @@ if($_SESSION["connecter"] != "yes"){
             </label>
         </div>
 
+        <!-- id="category" onChange="update() -->
+
     <div class="createPostRow">
-        <select name="cat" id="category" onChange="update()">
+        <select name="cat" ">
         <option value=""> Choisissez une catégorie </option>
-        <option value="0"> Immobilier </option>
-        <option value="1"> Véhicule </option>
-        <option value="2"> Multimédia </option>
+        <option value="immobilier"> Immobilier </option>
+        <option value="vehicule"> Véhicule </option>
+        <option value="multimedia"> Multimédia </option>
         </select> <br>
 
 
@@ -294,3 +296,7 @@ if(isset($_POST['action']) && $_POST['action']=="valider") {
 
     // header('Location: index.php');
 } ?>
+
+<?php include 'footer.html' ?>
+</body>
+</html>
