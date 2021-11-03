@@ -50,6 +50,7 @@ class Posting extends Database {
 
     }
 
+    // Fonction pour la barre de recherche et les catégories
 
     public function search(){
 
@@ -59,6 +60,37 @@ class Posting extends Database {
         $post = $postings->fetchAll();
         return $post;
     } 
+
+    public function localisation(){
+        $loca = $this->connect()->prepare('SELECT * FROM posting INNER JOIN user ON posting.user_id = user.user_id WHERE posting.posting_loc LIKE :localisation ORDER BY posting.posting_id DESC;');
+        $loca->bindValue(':localisation', '%'.$_GET['localisation'].'%', PDO::PARAM_STR);
+        $loca->execute();
+        $loc = $loca->fetchAll();
+        return $loc;
+    }
+
+    public function catImmo(){
+        $cat = $this->connect()->prepare("SELECT * FROM posting WHERE posting_cat = 'immobilier' ");
+        $cat->execute();
+        $categorie = $cat->fetchAll();
+        return $categorie;
+    }
+
+    public function catVehicle(){
+        $cat = $this->connect()->prepare("SELECT * FROM posting WHERE posting_cat = 'véhicule' ");
+        $cat->execute();
+        $categorie = $cat->fetchAll();
+        return $categorie;
+    }
+
+    public function catMedia(){
+        $cat = $this->connect()->prepare("SELECT * FROM posting WHERE posting_cat = 'multimédia' ");
+        $cat->execute();
+        $categorie = $cat->fetchAll();
+        return $categorie;
+    }
+
+    // Fonctions pour date et prix par odre croissant ou décroissant
 
     public function orderDateC(){
         $orderd = $this->connect()->prepare("SELECT * FROM posting  ORDER BY posting_date ASC");
@@ -87,7 +119,7 @@ class Posting extends Database {
         $price_order = $orderp->fetchAll(); 
         return $price_order;
     }
-}
 
+}
 
 ?>
