@@ -16,6 +16,7 @@ class Register extends Database{
     public function add($name, $firstname, $lastname, $email, $password){
 
         $name = $_POST["name"];
+        $profilepic = "";
         $firstname = $_POST["firstname"];
         $lastname = $_POST["lastname"];
         $email = $_POST["email"];
@@ -28,8 +29,9 @@ class Register extends Database{
         if (count($user_name) > 0)
         $erreur = "Pseudo déja utilisé!";
         else {
-        $insert = $this->connect()->prepare("INSERT INTO user(`user_name`, `user_firstname`, `user_lastname`, `user_email`, `user_pwd`) VALUES(:username,:firstname,:lastname,:email,:password)");
+        $insert = $this->connect()->prepare("INSERT INTO user(`user_name`, user_profilepicture, `user_firstname`, `user_lastname`, `user_email`, `user_pwd`) VALUES(:username, :profilepic, :firstname,:lastname,:email,:password)");
         $insert->bindValue(":username",$name);
+        $insert->bindValue(":profilepic",$profilepic);
         $insert->bindValue(":firstname",$firstname);
         $insert->bindValue(":lastname",$lastname);
         $insert->bindValue(":email",$email);
@@ -52,18 +54,29 @@ class Register extends Database{
         $user = $verify->fetch(PDO::FETCH_ASSOC);
         if (!empty($user)){
             if(password_verify($password, $user["user_pwd"])) {
-                $_SESSION["firstname_lastname"] = $user["user_firstname"] . $user["user_lastname"];
+                $_SESSION['username'] = $user["user_name"];
+                $_SESSION["firstname"] = $user["user_firstname"];
                 $_SESSION["connecter"] = "yes";
                 $_SESSION["user_id"] = $user["user_id"];
+                $_SESSION["profilepicture"] = $user["user_profilepicture"];
 
                 header("location: ../profile.php");
         } else {
-            echo "Mot de passe incorect espèce de grosse merde c'est pour ça que tes parents t'on déshérité";
+            echo "Mot de passe incorect espèce de grosse merde c'est pour ça que t'as pas d'amis t'es pas capable de retenir 6 caractères ou quoi d'ailleurs ça a donné quoi ton entretient d'embauche? Ah ouais ça m'aurait étonné.";
         }
 
 
         } else
         $erreur = "Mauvais nom d'utilisateur ou mot de passe !";
+    }
+
+    public function userProfile() {
+        $profile = $this->connect()->prepare('SELECT * FROM `user` INNER JOIN user ON posting.user_id = user.user_id LEFT JOIN picture ON posting.posting_id = picture.posting_id WHERE posting.posting_id = (:id)');
+        $profile->bindParam(':id',$_GET['profile']);
+        $profile-> execute();
+        $post = $profile->fetchAll();
+        return $post;
+
     }
     
 }

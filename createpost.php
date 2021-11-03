@@ -1,7 +1,8 @@
 <?php 
-$pageTitle = "Ajouter une annonce | Second Hand";
+session_start();
+$pageTitle = "Ajouter une annonce";
 include 'head.php';
-include 'header.html';
+include 'header.php';
 require_once 'class/class.postings.php'; 
 require_once 'class/class.pictures.php';
 // var_dump($_FILES);
@@ -10,7 +11,7 @@ require_once 'class/class.pictures.php';
 // echo "<br>";
 // echo $upload_max_size = ini_get('upload_max_filesize');  
 // echo $post_max_size=ini_get('post_max_size');
-session_start();
+
 if($_SESSION["connecter"] != "yes"){
     header("location: login/login.php");
     exit();
@@ -20,7 +21,7 @@ if($_SESSION["connecter"] != "yes"){
 
 
 <!-- GENERAL FOR ALL CATEGORIES---------------  -->
-<form method="POST" enctype="multipart/form-data"> <!-- Formulaire -->
+<form method="post" enctype="multipart/form-data"> <!-- Formulaire -->
 
 <div class="form">
     <div class="generalForm">
@@ -32,24 +33,25 @@ if($_SESSION["connecter"] != "yes"){
 
             <div>
                 <label for="price"> À quel prix ? </label> <br>
-                <span class="currencyinput"><input type="number" placeholder="Prix" step="0.01" name="price" id="price"> €</span>
+                <span class="currencyinput"><input type="number" placeholder="Prix" step="0.01" name="price" class="innerValue"> €</span>
                 
             </div>
         </div>
 
 
-        <div class="imagesPreview">
-            <label class="custom-file-upload">
+        <div class="imagesPreview"> <br>
+            <label class="custom-file-upload"> Choississez une miniature </label> <br>
                 <input type="file" name="file" id="">
-            </label>
         </div>
 
+        <!--  -->
+
     <div class="createPostRow">
-        <select name="cat" id="category" onChange="update()">
-        <option value=""> Choisissez une catégorie </option>
-        <option value="0"> Immobilier </option>
-        <option value="1"> Véhicule </option>
-        <option value="2"> Multimédia </option>
+        <select name="catglobal" id="category" >
+            <option value=""> Choisissez une catégorie </option>
+            <option value="immobilier"> Immobilier </option>
+            <option value="vehicule"> Véhicule </option>
+            <option value="multimedia"> Multimédia </option>
         </select> <br>
 
 
@@ -63,6 +65,11 @@ if($_SESSION["connecter"] != "yes"){
         <label for="desc"> Une petite description? </label> <br> 
         <textarea placeholder="Description" name="desc"> </textarea> <br>
 
+        <div class="imagesPreview"> <br>
+            <label class="custom-file-upload"> Vous pouvez ajouter jusqu'à 9 images supplémentaires </label> <br>
+                <input type="file"  multiple>
+        </div>
+
 
 
     </div>
@@ -71,34 +78,44 @@ if($_SESSION["connecter"] != "yes"){
         <!-- SPECIFIC FOR HOUSING---------------  -->
 
         <div id="housing" class="nodisplay">
-            <label for="cat"> Is it a house or a flat? </label> <br>
-            <select name="cat">
+            <label for="cat"> Maison ou appart? </label> <br>
+            <select name="cat"> 
                 <option value=""> Choisissez une catégorie </option>
-                <option value="0"> House </option>
-                <option value="1"> Flat </option>
-                <option value="2"> Other... </option>
+                <option value="0"> Maison </option>
+                <option value="1"> Appartement </option>
+                <option value="2"> Autre </option>
             </select> 
 
-            <label for="surface"> Surface: </label>  
-            <input type="number" placeholder="Surface" step="0.1" name="surface"> m² <br>
+            <br>
+             <br>
+            <div>
+                <label for="surface"> Surface: </label>  <br>
+                <span class="currencyinput"><input type="number" placeholder="Surface" step="0.1" name="surface" class="innerValue"> m²</span>
+                
+            </div>
             <br>
 
-            <label for="rooms"> Nombre de pièces </label>  
-            <input type="number" placeholder="Nmbr de pièces" step="1" name="rooms"> Pièces <br>
+            <label for="rooms"> Nombre de pièces </label>  <br>
+            <input type="number" placeholder="Nmbr de pièces" step="1" name="rooms"> <br>
         </div>
         <br>
 
         <!-- SPECIFIC FOR VEHICLE---------------  -->
 
         <div id="vehicle" class="nodisplay">
-            <label for="brand"> La marque de votre véhicule: </label>  
+            <label for="brand"> La marque de votre véhicule: </label>  <br>
             <input type="text" placeholder="Mercedes" name="brand"> <br>
 
             <label for="model"> Son modèle: </label>  <br>
             <input type="text" placeholder="Mercedes" name="model"> <br>
 
-            <label for="mileage"> Son kilomètrage: </label>  
-            <input type="number" placeholder="100 000" step="1" name="mileage"> Km <br>
+            
+
+            <div>
+                <label for="mileage"> Son kilomètrage: </label>  <br>
+                <span class="currencyinput"><input type="number" placeholder="100 000" step="1" name="mileage" class="innerValue"> Km</span>
+                
+            </div>
 
             <label for="fuel"> Carburant </label> <br>
             <select name="fuel">
@@ -175,6 +192,8 @@ if($_SESSION["connecter"] != "yes"){
     </form>
 </div>
 
+<!-- JAVASCRIPT POUR L'ENVOI DES DOCUMENTS -->
+
 
 <script>
     function update() {
@@ -244,53 +263,52 @@ if($_SESSION["connecter"] != "yes"){
 
 
 
+<!-- ENVOI ET STOCKAGE DES IMAGES  -->
 
 <?php 
-// if(isset($_FILES['file'])) {  //On récupère toutes les données du fichier et les stocke dans des variables
+if(isset($_FILES['file'])) {  //On récupère toutes les données du fichier et les stocke dans des variables
 
-//     $tmpName = $_FILES['file']['tmp_name'];
-//     $name = $_FILES['file']['name'];
-//     $size = $_FILES['file']['size'];
-//     $error = $_FILES['file']['error'];
-//     $maxSize = 8388608;
+    $tmpName = $_FILES['file']['tmp_name'];
+    $name = $_FILES['file']['name'];
+    $size = $_FILES['file']['size'];
+    $error = $_FILES['file']['error'];
+    $maxSize = 8388608;
 
-//     $tabExtension = explode('.', $name); //On compare l'extension du fichier aux extension acceptées (jpg ou png)
-//     $extension = strtolower(end($tabExtension));
+    $tabExtension = explode('.', $name); //On compare l'extension du fichier aux extension acceptées (jpg ou png)
+    $extension = strtolower(end($tabExtension));
 
-//     $extensions = ['jpg','jpeg','png'];
+    $extensions = ['jpg','jpeg','png'];
 
-//     if(in_array($extension, $extensions) && $size <= $maxSize && $error == 0) { //On viérifie que l'extension soit bonne, que la taille respecte la limite et qu'il n'y ait pas d'erreur
+    if(in_array($extension, $extensions) && $size <= $maxSize && $error == 0) { //On viérifie que l'extension soit bonne, que la taille respecte la limite et qu'il n'y ait pas d'erreur
 
-//         $autoname = uniqid('img', false); //On donne un nom unique à l'image pour éviter que deux images aux noms identiques s'écrasent
-//         $file = $autoname.'.'.$extension;
-
-//         move_uploaded_file($tmpName, './user_images/'.$file);
-
+        $autoname = uniqid('img', false); //On donne un nom unique à l'image pour éviter que deux images aux noms identiques s'écrasent
+        $file = $autoname.'.'.$extension;
+        move_uploaded_file($tmpName, './user_images/'.$file);
 
 
 
-//     } else {
-//         echo "L'image ne convient pas! <br> erreur: $error";
-//     }
 
 
-// }
-
-?>
 
 
-<?php //envoi du formulaire
+    } else {
+        echo "L'image ne convient pas! <br> erreur: $error";
+    }
+
+
+}
+
 if(isset($_POST['action']) && $_POST['action']=="valider") {
     $create = new Posting();
     $create->create();
     
-    // $pic = new Picture();
-    // $pic->addPicture(); 
+
+    header('Location: index.php'); }
+
+?>
 
 
 
-
-  
-
-    // header('Location: index.php');
-} ?>
+<?php include 'footer.html' ?>
+</body>
+</html>
