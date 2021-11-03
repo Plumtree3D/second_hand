@@ -204,7 +204,7 @@ input[type=number] {
 }
 
 .search{
-    padding: 50px;
+    padding: 20px;
     width: 30%;
     margin: auto;
 }
@@ -266,7 +266,21 @@ hr {
 .profile {
     margin: auto;
     width: 85%;
+}
 
+.order{
+    display: flex;
+}
 
+.order input{
+    display: flex;
+    margin: 0 10px 50px 25px;
+    width: 250px;
+}
+
+.choix{
+    width: 30%;
+    margin: auto;
+    padding: 15px;
 }
 

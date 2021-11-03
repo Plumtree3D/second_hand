@@ -12,7 +12,6 @@ require_once 'class/class.database.php';
 // $connect = new Database();
 // $connect = $connect->connect();
 
-
 ?>
 
 <div class="search">
@@ -21,20 +20,32 @@ require_once 'class/class.database.php';
         <input type="submit" name="su" value="valider">
     </form>
 </div>
-<div class="order">
-    <tr>
-        <form action="" method="post">
-            <th><button>Trier par date</button>
-        </form>
-        </th>
-        <form action="" method="post">
-            <th><button>Trier par prix</button>
-        </form>
-        </th>
-    </tr>
+
+<div class="choix">
+    <form method="post">
+        <select name="categories" id="">
+            <option value="Immobilier">Immobilier</option>
+            <option value="Véhicule">Véhicule</option>
+            <option value="Multimédia">Multimédia</option>
+        </select>
+    </form>
 </div>
 
 
+<div class="order">
+    <form action="" method="post">
+        <input type="submit" name="dateC" value="Date croissante">
+    </form>
+    <form action="" method="post">
+        <input type="submit" name="dateD" value="Date décroissante">
+    </form>
+    <form action="" method="post">
+        <input type="submit" name="prixC" value="Prix croissant">
+    </form>
+    <form action="" method="post">
+        <input type="submit" name="prixD" value="Prix décroissant">
+    </form>
+</div>
 
 <?php 
     if(!isset($_GET['search'])||(empty($_GET['search']))){
@@ -45,9 +56,28 @@ require_once 'class/class.database.php';
         $select = $select->search();
     }
 
+    if(isset($_POST['prixC'])){
+        $select = new Posting();
+        $select = $select->orderPriceC();
+    }
+    if(isset($_POST['prixD'])){
+        $select = new Posting();
+        $select = $select->orderPriceD();
+    }
+    if(isset($_POST['dateC'])){
+        $select = new Posting();
+        $select = $select->orderDateC();
+    }
+    if(isset($_POST['dateD'])){
+        $select = new Posting();
+        $select = $select->orderDateD();
+    }
+    
 
 
-    foreach($select as $truc) : 
+    foreach($select as $truc) :
+
+    
     ?>
 
   
