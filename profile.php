@@ -1,10 +1,14 @@
 <?php
 session_start();
 
-$pageTitle = $_SESSION['username'];
-include 'head.php';
-include 'header.html';
+require_once 'class/class.user.php';
 require_once 'class/class.postings.php';
+
+
+
+include 'head.php';
+include 'header.php';
+
 
 if($_SESSION["connecter"] != "yes"){
     header("location: login/login.php");
@@ -27,6 +31,11 @@ $_SESSION["firstname"]. " !";
 
 
 <body>
+
+
+
+
+
 <div class="profile">
     <p><?php echo $bienvenue ?></p>
     <div class="profileBanner">
@@ -37,9 +46,8 @@ $_SESSION["firstname"]. " !";
                 $profilePicture = $_SESSION['profilepicture'];
                 echo '<img src="user_images/'.$profilePicture.'" width="160" height="160">'; 
                 } else {
-                echo '<img src="images/placeholder.png" width="160">';   
+                echo '<img src="images/placeholder.png" width="160">';  }
 
-                }
             ?>
         </div>
 
@@ -53,7 +61,6 @@ $_SESSION["firstname"]. " !";
     </div>
 
 
-    
 
     <h2> Vos annonces: </h2>
 
@@ -75,7 +82,7 @@ $_SESSION["firstname"]. " !";
                           
                     </div>
                     <div class=" column centerpart">
-                        <p> <strong> <?php echo $truc['posting_title']; ?> </strong>  </p>
+                    <a href=<?="'posting.php?post=".$truc['posting_id']."'"?> target="_blank"><p> <strong> <?php echo $truc['posting_title']; ?> </strong>  </p> </a>
                         <span> <img src="images/map_marker.svg" alt=""> <?php echo $truc['posting_loc']; ?> </span>
         
                         <div class="description">
