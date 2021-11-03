@@ -131,6 +131,7 @@ form {
 .generalForm {
     padding-left: 15px;
     padding-right: 15px;
+    border-right: solid 1px #479499;
 }
 
 .createPostRow {
@@ -142,10 +143,12 @@ form {
 .form {
     width: 1200px;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
+
 }
 
 .sidebar {
+
     padding: 0 15px 0 15px;
 }
 
@@ -166,7 +169,7 @@ input, .currencyinput {
     padding: 16px;
     outline: none;
     border-radius: 7px;
-    width: 300px;
+    width: 150px;
 }
 
 select {
@@ -183,7 +186,7 @@ select {
     width: 550px;
 }
 
-#price {
+.innerValue {
     border: none;
     width: 70px;
 }

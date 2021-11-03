@@ -62,12 +62,21 @@ class Register extends Database{
 
                 header("location: ../profile.php");
         } else {
-            echo "Mot de passe incorect espèce de grosse merde c'est pour ça que tes parents t'on déshérité";
+            echo "Mot de passe incorect espèce de grosse merde c'est pour ça que t'as pas d'amis t'es pas capable de retenir 6 caractères ou quoi d'ailleurs ça a donné quoi ton entretient d'embauche? Ah ouais ça m'aurait étonné.";
         }
 
 
         } else
         $erreur = "Mauvais nom d'utilisateur ou mot de passe !";
+    }
+
+    public function userProfile() {
+        $profile = $this->connect()->prepare('SELECT * FROM `user` INNER JOIN user ON posting.user_id = user.user_id LEFT JOIN picture ON posting.posting_id = picture.posting_id WHERE posting.posting_id = (:id)');
+        $profile->bindParam(':id',$_GET['profile']);
+        $profile-> execute();
+        $post = $profile->fetchAll();
+        return $post;
+
     }
     
 }
