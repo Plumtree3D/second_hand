@@ -38,8 +38,6 @@ class Posting extends Database {
         $postings-> execute();
         $post = $postings->fetchAll();
         return $post;
-
-
     }
 
 
@@ -52,20 +50,33 @@ class Posting extends Database {
         return $post;
     } 
 
-    public function orderDate(){
-        $orderd = $this->connect()->prepare("SELECT * FROM `posting` ORDER BY posting_date ASC");
+    public function orderDateC(){
+        $orderd = $this->connect()->prepare("SELECT * FROM posting  ORDER BY posting_date ASC");
         $orderd-> execute();
-        $price_order = $orderd->fetchAll(); 
-        return $price_order;
+        $date_order = $orderd->fetchAll(); 
+        return $date_order;
     }
 
-    public function orderPrice(){
+    public function orderDateD(){
+        $orderd = $this->connect()->prepare("SELECT * FROM posting  ORDER BY posting_date DESC");
+        $orderd-> execute();
+        $date_order = $orderd->fetchAll(); 
+        return $date_order;
+    }
+
+    public function orderPriceC(){
         $orderp = $this->connect()->prepare("SELECT * FROM `posting` ORDER BY posting_price ASC");
         $orderp-> execute();
         $price_order = $orderp->fetchAll(); 
         return $price_order;
     }
 
+    public function orderPriceD(){
+        $orderp = $this->connect()->prepare("SELECT * FROM `posting` ORDER BY posting_price DESC");
+        $orderp-> execute();
+        $price_order = $orderp->fetchAll(); 
+        return $price_order;
+    }
 }
 
 
